@@ -11,11 +11,13 @@ from .serializers import AccountsSerializer
 
 @csrf_exempt
 def accounts_list(request):
+    # 전체 회원 조회
     if request.method == 'GET':
         query_set = Accounts.objects.all()
         serializer = AccountsSerializer(query_set, many=True)
         return JsonResponse(serializer.data, safe=False)
 
+    # 회원 등록
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = AccountsSerializer(data=data)
@@ -28,7 +30,6 @@ def accounts_list(request):
 def accounts(request, pk):
 
     obj = Accounts.objects.get(pk=pk)
-
     if request.method == 'GET':
         serializer = AccountsSerializer(obj)
         return JsonResponse(serializer.data, safe=False)
@@ -52,7 +53,7 @@ def login(request):
         search_name = data['name']
         obj = Accounts.objects.get(name=search_name)
 
-        if data['email'] == obj.email:
+        if data['password'] == obj.password:
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=400)
