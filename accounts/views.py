@@ -57,3 +57,7 @@ def login(request):
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=400)
+
+
+def login_page(request):
+    return render(request, "login/login.html")

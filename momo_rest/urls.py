@@ -26,4 +26,5 @@ urlpatterns = [
     path('accounts/<int:pk>', views.accounts),
     path('login/', views.login),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    re_path('^$', views.login_page),
 ]
